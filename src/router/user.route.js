@@ -7,7 +7,8 @@ const {
 
 const {
     userValidator,
-    userVerify
+    userVerify,
+    cryptPassword
 } = require('../middleware/user.middleware')
 
 
@@ -17,7 +18,7 @@ const router = Router({
 
 
 // 注册接口
-router.post('/register',userValidator, userVerify, register)
+router.post('/register',userValidator, userVerify, cryptPassword, register)
 // 登录接口
 router.post('/login', login)
 
