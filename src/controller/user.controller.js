@@ -32,7 +32,8 @@ class UserController {
     }
 
     async login(ctx, next) {
-        ctx.body = 'user login!'
+        const { user_name } = ctx.request.body
+        ctx.body = `欢迎回来，${user_name}`
     }
 }
 
