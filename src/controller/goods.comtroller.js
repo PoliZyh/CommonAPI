@@ -1,13 +1,18 @@
 const path = require('path')
 
 const {
-    fileUploadError
+    fileUploadError,
+    unSupportedFileType
 } = require('../constant/error.type')
 
 class GoodsController {
     async upload(ctx, next) {
         const { file } = ctx.request.files
+        const fileTypes = ['image/jpeg', 'image/png']
         if (file) {
+            if (!fileTypes.includes(file.mimetype)) {
+                return ctx.app.emit('error', unSupportedFileType, ctx)
+            }
             ctx.body = {
                 code: 0,
                 msg: '上传成功',
