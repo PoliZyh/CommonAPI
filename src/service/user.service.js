@@ -32,6 +32,22 @@ class UserService {
         return res ? res.dataValues : null
     }
     
+    // 更新
+    async updateUserInfoById({id, user_name, password, is_admin}) {
+        const whereOpt = {id}
+        const newUser = {}
+
+        user_name && Object.assign(newUser, { user_name })
+        password && Object.assign(newUser, { password })
+        is_admin && Object.assign(newUser, { is_admin })
+
+        const res = await User.update(newUser, {
+            where: whereOpt
+        })
+
+        return res[0] > 0 ? true : false // 大于0成功 否则失败
+
+    }
 }
 
 

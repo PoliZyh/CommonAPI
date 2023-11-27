@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const {
-    createUser, getUserInfo,
+    createUser, getUserInfo, updateUserInfoById
 } = require('../service/user.service')
 
 const { userRegisterError} = require('../constant/error.type')
@@ -56,7 +56,25 @@ class UserController {
 
     // 修改密码
     async changePassword(ctx, next) {
-        ctx.body = '修改成功1'
+        // 1. 获取数据
+        const { password } = ctx.request.body
+        const { id } = ctx.state.user
+        // 2. 操作数据库
+        const res = await updateUserInfoById({id, password})
+        // 3. 返回结果
+        if (res) {
+            ctx.body = {
+                code: 0,
+                message: '修改密码成功',
+                result: ''
+            }
+        } else {
+            ctx.body = {
+                code: 10007,
+                message: '修改密码失败',
+                result: ''
+            }
+        }
     }
 }
 

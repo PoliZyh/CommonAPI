@@ -25,6 +25,6 @@ router.post('/register', userValidator, userVerify, cryptPassword, register)
 // 登录接口
 router.post('/login', userValidator, verifyLogin, login)
 // 修改密码接口
-router.patch('/', auth, changePassword)
+router.patch('/', auth, cryptPassword, changePassword)
 
 module.exports = router
