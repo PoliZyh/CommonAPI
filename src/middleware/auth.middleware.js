@@ -9,7 +9,7 @@ const {
 
 // 鉴权是否登录
 const auth = async (ctx, next) => {
-    const { authorization } = ctx.request.header
+    const { authorization = '' } = ctx.request.header
     const token = authorization.replace('Bearer ', '')
 
     try {
