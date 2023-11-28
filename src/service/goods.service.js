@@ -36,6 +36,28 @@ class GoodsService {
         })
         return res > 0 ? true : false
     }
+
+    // 查询商品列表
+    async findGoods(pageNum, pageSize) {
+        // // 1. 获取总数
+        // const count = await Goods.count()
+        // // 2. 获取分页的具体数据
+        // const offset = (pageNum - 1) * pageSize
+        // const limit = pageSize * 1
+        // const rows = await Goods.findAll({
+        //     offset,
+        //     limit
+        // })
+        const offset = (pageNum - 1) * pageSize
+        const limit = pageSize * 1
+        const { count, rows } = await Goods.findAndCountAll({ offset, limit })
+        return {
+            pageNum: pageNum * 1,
+            pageSize: pageSize * 1,
+            total: count,
+            list: rows
+        }
+    }
 }
 
 
