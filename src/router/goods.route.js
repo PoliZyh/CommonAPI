@@ -1,8 +1,9 @@
 const Router = require('koa-router')
 
 const { 
-    upload
-} = require('../controller/goods.comtroller')
+    upload,
+    create
+} = require('../controller/goods.controller')
 
 const { 
     auth,
@@ -22,8 +23,6 @@ const router = new Router({
 router.post('/upload', auth, hasAdminPermission, upload)
 
 // 发布商品接口
-router.post('/', auth, hasAdminPermission, validator, (ctx) => {
-    ctx.body = 'ok'
-})
+router.post('/', auth, hasAdminPermission, validator, create)
 
 module.exports = router
