@@ -22,6 +22,7 @@ app.use(koaBody({
 }));
 // 设置文件夹为静态资源文件夹（能够通过localhost进行访问）
 app.use(KoaStatic(path.join(__dirname, '../upload')))
+// 对参数进行校验
 app.use(parameter(app));
 
 app.use(router.routes()).use(router.allowedMethods());

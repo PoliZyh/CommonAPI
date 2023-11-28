@@ -3,7 +3,9 @@ const Router = require('koa-router')
 const { 
     upload,
     create,
-    update
+    update,
+    remove,
+    restore
 } = require('../controller/goods.controller')
 
 const { 
@@ -28,5 +30,14 @@ router.post('/', auth, hasAdminPermission, validator, create)
 
 // 修改商品信息接口
 router.put('/:id', auth, hasAdminPermission, validator, update)
+
+// 硬删除商品接口
+// router.delete('/:id', auth, hasAdminPermission, remove)
+
+// 商品上下架
+router.post('/:id/off', auth, hasAdminPermission, remove)
+
+// 商品上架
+router.post('/:id/on', auth, hasAdminPermission, restore)
 
 module.exports = router

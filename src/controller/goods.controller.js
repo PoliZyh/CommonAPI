@@ -9,7 +9,9 @@ const {
 
 const {
     createGoods,
-    updateGoods
+    updateGoods,
+    removeGoods,
+    restoreGoods
 } = require('../service/goods.service')
 
 class GoodsController {
@@ -64,6 +66,34 @@ class GoodsController {
             }
         } catch(err) {
             console.error(err)
+        }
+    }
+
+    // 下架商品
+    async remove(ctx) {
+        const res = await removeGoods(ctx.params.id)
+        if (res) {
+            ctx.body = {
+                code: 0,
+                message: '商品下架成功',
+                result: ''
+            }
+        } else {
+            return ctx.app.emit('error', invalidGoodsID, ctx)
+        }
+    }
+
+    // 上架商品
+    async restore(ctx) {
+        const res = await restoreGoods(ctx.params.id)
+        if (res) {
+            ctx.body = {
+                code: 0,
+                message: '商品上架成功',
+                result: ''
+            }
+        } else {
+            return ctx.app.emit('error', invalidGoodsID, ctx)
         }
     }
 }

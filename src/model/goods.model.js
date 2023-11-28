@@ -24,6 +24,8 @@ const Goods = seq.define('CommonAPI_Goods', {
         allowNull: false,
         comment: '商品图片的url地址'
     }
+}, {
+    paranoid: true // 软删除
 })
 
 // Goods.sync({ force: true })
