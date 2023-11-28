@@ -3,11 +3,13 @@ const path = require('path')
 const {
     fileUploadError,
     unSupportedFileType,
-    publishGoodsError
+    publishGoodsError,
+    invalidGoodsID
 } = require('../constant/error.type')
 
 const {
-    createGoods
+    createGoods,
+    updateGoods
 } = require('../service/goods.service')
 
 class GoodsController {
@@ -45,6 +47,24 @@ class GoodsController {
             return ctx.app.emit('error', publishGoodsError, ctx)
         }
         
+    }
+
+    // 更新商品信息
+    async update(ctx) {
+        try { 
+            const res = await updateGoods(ctx.params.id, ctx.request.body)
+            if (res) {
+                ctx.body = {
+                    code: 0,
+                    message: '更新商品信息成功',
+                    result: ''
+                }
+            } else {
+                return ctx.app.emit('error', invalidGoodsID, ctx)
+            }
+        } catch(err) {
+            console.error(err)
+        }
     }
 }
 
