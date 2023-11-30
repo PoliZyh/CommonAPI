@@ -2,11 +2,13 @@ const { DataTypes } = require('sequelize')
 
 const seq = require('../db/seq')
 
+const Goods = require('./goods.model')
+
 const Cart = seq.define('CommonAPI_Carts', {
     goods_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        comment: '商品id'
+        comment: '商品id',
     },
     user_id: {
         type: DataTypes.INTEGER,
@@ -27,7 +29,11 @@ const Cart = seq.define('CommonAPI_Carts', {
     }
 })
 
-
+// 与Goods关联 
+Cart.belongsTo(Goods, {
+    foreignKey: 'goods_id',
+    as: 'goods_info'
+})
 // Cart.sync({ force: true })
 
 module.exports = Cart

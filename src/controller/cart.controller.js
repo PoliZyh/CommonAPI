@@ -1,6 +1,7 @@
 
 const {
-    createOrUpdate
+    createOrUpdate,
+    findCarts
 } = require('../service/cart.service')
 
 class CartController {
@@ -18,6 +19,16 @@ class CartController {
         ctx.body = {
             code: 0,
             message: '添加到购物车成功',
+            result: res
+        }
+    }
+
+    async findAll(ctx) {
+        const { pageNum = 1, pageSize = 10 } = ctx.request.query
+        const res = await findCarts(pageNum, pageSize)
+        ctx.body = {
+            code: 0,
+            message: '获取购物车成功',
             result: res
         }
     }

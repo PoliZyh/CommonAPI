@@ -1,5 +1,6 @@
 const { Op } = require('sequelize')
 const Cart = require('../model/cart.model')
+const Goods = require('../model/goods.model')
 
 class CartService {
     async createOrUpdate(user_id, goods_id) {
@@ -21,6 +22,25 @@ class CartService {
                 user_id,
                 goods_id
             })
+        }
+    }
+
+    async findCarts(pageNum, pageSize) {
+        const { count, rows } = await Cart.findAndCountAll({
+            attributes: ['id', 'number', 'selected', 'goods_id'], //要查找的字段
+            offset: (pageNum - 1) * pageSize,
+            limit: pageSize * 1,
+            include: {
+                model: Goods,
+                as: 'goods_info',
+                attributes: ['id', 'goods_price', 'goods_img', 'goods_name']
+            }
+        })
+        return {
+            pageNum,
+            pageSize,
+            total: count,
+            list: rows
         }
     }
 }
