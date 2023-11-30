@@ -52,7 +52,7 @@ class GoodsService {
         const limit = pageSize * 1
         const { count, rows } = await Goods.findAndCountAll({ offset, limit })
         return {
-            pageNum: pageNum * 1,
+            pageNum: offset * 1,
             pageSize: pageSize * 1,
             total: count,
             list: rows
