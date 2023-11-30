@@ -13,7 +13,9 @@ const {
     add,
     findAll,
     update,
-    remove
+    remove,
+    selectAll,
+    unSelectAll
 } = require('../controller/cart.controller');
 const router = new Router({
     prefix: '/carts'
@@ -45,5 +47,10 @@ router.delete(
     }),
     remove
 )
+
+// 全选接口
+router.post('/selectAll', auth, selectAll)
+// 全不选
+router.post('/unSelectAll', auth, unSelectAll)
 
 module.exports = router

@@ -3,7 +3,9 @@ const {
     createOrUpdate,
     findCarts,
     updateCarts,
-    removeCarts
+    removeCarts,
+    selectAllCarts,
+    unSelectAllCarts
 } = require('../service/cart.service')
 
 const {
@@ -64,6 +66,25 @@ class CartController {
         }
     }
 
+    async selectAll(ctx) {
+        const { id } = ctx.state.user
+        const res = await selectAllCarts(id)
+        ctx.body = {
+            code: 0,
+            message: '全部选中',
+            result: res
+        }
+    }
+
+    async unSelectAll(ctx) {
+        const { id } = ctx.state.user
+        const res = await unSelectAllCarts(id)
+        ctx.body = {
+            code: 0,
+            message: '全部取消选中',
+            result: res
+        }
+    }
 
 }
 
