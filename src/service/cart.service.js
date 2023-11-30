@@ -52,7 +52,17 @@ class CartService {
         selected !== undefined && (res.selected = selected)
         return await res.save()
     }
+
+    async removeCarts(ids) {
+        return await Cart.destroy({
+            where: {
+                id: {
+                    [Op.in]: ids, // 批量删除
+                }
+            }
+        })
+    }
 }
 
 
-module.exports = new CartService
+module.exports = new CartService()

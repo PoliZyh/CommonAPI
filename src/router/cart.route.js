@@ -12,7 +12,8 @@ const {
 const {
     add,
     findAll,
-    update
+    update,
+    remove
 } = require('../controller/cart.controller');
 const router = new Router({
     prefix: '/carts'
@@ -33,6 +34,16 @@ router.patch(
         selected: { type: 'boolean', required: false }
     }),
     update
+)
+
+// 删除购物车
+router.delete(
+    '/',
+    auth,
+    validator({
+        ids: 'array'
+    }),
+    remove
 )
 
 module.exports = router

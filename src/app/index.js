@@ -18,7 +18,8 @@ app.use(koaBody({
         uploadDir: path.join(__dirname, '../upload'), // 上传的文件放到哪个路径下
         keepExtensions: true, // 保持扩展名
         // 上传成功后将会挂在到ctx.request.files中
-    }
+    },
+    parsedMethods: ['POST', 'PUT', 'PATCH', 'DELETE']
 }));
 // 设置文件夹为静态资源文件夹（能够通过localhost进行访问）
 app.use(KoaStatic(path.join(__dirname, '../upload')))
